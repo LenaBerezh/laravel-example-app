@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
             $table->timestamps();
+        });
+
+        Schema::create('category_job', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('job_id')->constrainted()->onDelete('cascade');
+            $table->foreignId('category_id')->constrainted()->onDelete('cascade');
         });
     }
 
@@ -22,6 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('category_job');
         Schema::dropIfExists('categories');
     }
 };

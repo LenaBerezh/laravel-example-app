@@ -11,7 +11,7 @@ class UpdateJobRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['string'],
+            'company_id' => ['required', 'integer', 'exists:companies,id'],
+            'salary' => ['numeric'],
+            'city' => ['required', 'string', 'max:255'],
+            'category' => ['string', 'max:255'],
         ];
     }
 }

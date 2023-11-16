@@ -13,7 +13,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        return view('companies.index', [
+            'companies' => Company::orderBy('name', 'asc')->cursorPaginate(10),
+        ]);
     }
 
     /**
@@ -21,7 +23,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('companies.create');
     }
 
     /**
@@ -29,7 +31,9 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        //
+        $company = Company::create($request->validated());
+
+        return redirect()->route('companies.show', $company);
     }
 
     /**
@@ -37,30 +41,9 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Company $company)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCompanyRequest $request, Company $company)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Company $company)
-    {
-        //
+        return view('companies.show', [
+            'company' => $company,
+            'jobs' => $company->jobs()->get(),
+        ]);
     }
 }
