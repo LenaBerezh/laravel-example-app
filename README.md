@@ -1,7 +1,7 @@
 ## Run
 
 ```bash
-git clone git@lena.github.com:LenaBerezh/laravel-example-app.git
+git clone git@github.com:LenaBerezh/laravel-example-app.git
 cd laravel-example-app
 
 # composer install
